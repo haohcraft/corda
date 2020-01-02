@@ -63,6 +63,7 @@ internal object V1NodeConfigurationSpec : Configuration.Specification<NodeConfig
     private val networkParameterAcceptanceSettings by nested(NetworkParameterAcceptanceSettingsSpec)
             .optional()
             .withDefaultValue(Defaults.networkParameterAcceptanceSettings)
+    private val flowBackgroundProcessThreadPoolSize by int().optional().withDefaultValue(Defaults.flowBackgroundProcessThreadPoolSize)
     @Suppress("unused")
     private val custom by nestedObject().optional()
     @Suppress("unused")
@@ -125,7 +126,8 @@ internal object V1NodeConfigurationSpec : Configuration.Specification<NodeConfig
                     cordappDirectories = cordappDirectories.map { baseDirectoryPath.resolve(it) },
                     cordappSignerKeyFingerprintBlacklist = configuration[cordappSignerKeyFingerprintBlacklist],
                     blacklistedAttachmentSigningKeys = configuration[blacklistedAttachmentSigningKeys],
-                    networkParameterAcceptanceSettings = configuration[networkParameterAcceptanceSettings]
+                    networkParameterAcceptanceSettings = configuration[networkParameterAcceptanceSettings],
+                    flowBackgroundProcessThreadPoolSize = configuration[flowBackgroundProcessThreadPoolSize]
             ))
         } catch (e: Exception) {
             return when (e) {
